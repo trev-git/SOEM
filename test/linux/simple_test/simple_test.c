@@ -19,6 +19,8 @@
 
 #include "asda.h"
 #include "ethercat.h"
+#include "ethercatmain.h"
+#include "ethercattype.h"
 #include "osal.h"
 #include "sdo.h"
 
@@ -34,7 +36,6 @@ uint8 currentgroup = 0;
 boolean forceByteAlignment = FALSE;
 
 typedef struct PACKED {
-  uint8_t profile_mode;
   uint16_t control_word;
   int32_t target_position;
 } output_pdo_t;
@@ -60,7 +61,7 @@ void simpletest(char *ifname) {
     /* find and auto-config slaves */
 
     if (ec_config_init(FALSE) > 0) {
-      ec_slave[1].PO2SOconfig = pdo_remap_csp;
+      ec_slave[1].PO2SOconfig = pdo_remap_csv;
       printf("%d slaves found and configured.\n", ec_slavecount);
 
       if (forceByteAlignment) {
@@ -70,7 +71,15 @@ void simpletest(char *ifname) {
       }
 
       ec_configdc();
-      ec_dcsync01(1, TRUE, 1000 * 1000, 0, 0);
+      ec_dcsync01(1, TRUE, 8000, 0, 0);
+      printf("Setting up DC\n");
+      // Этот простой цикл должен (по идее) настроить
+      // синхронизацию для слейвов путём отправки пакетов.
+      for (int i = 0; i < 10000; i++)
+      {
+        ec_send_processdata();
+        ec_receive_processdata(EC_TIMEOUTMON);
+      }
 
       printf("Slaves mapped, state to SAFE_OP.\n");
       /* wait for all slaves to reach SAFE_OP state */
@@ -112,8 +121,8 @@ void simpletest(char *ifname) {
         output_pdo_ = (output_pdo_t *)ec_slave[0].outputs;
         input_pdo_ = (input_pdo_t *)ec_slave[0].inputs;
 
-        output_pdo_->profile_mode = 0x08;
-        output_pdo_->target_position = 3600000;
+        sdo_write8(1, 0x6060, 0, 0x09);
+        output_pdo_->target_position = 1200000;
         ec_send_processdata();
         ec_receive_processdata(EC_TIMEOUTRET);
         osal_usleep(5000);
@@ -133,10 +142,9 @@ void simpletest(char *ifname) {
         ec_receive_processdata(EC_TIMEOUTRET);
         osal_usleep(5000);
 
-        printf("%d\n", sdo_read16(1, 0x1c32, 1));
         for(int i = 1; i <= 1000; i++)
         {
-          double pos = sin(M_PI * 2 * i) * 1000000 + 3600000;
+          double pos = sin(M_PI * 2 * i) * 10000 + 1216000;
           output_pdo_->target_position = (int32_t)pos;
           ec_send_processdata();
           wkc = ec_receive_processdata(EC_TIMEOUTRET);

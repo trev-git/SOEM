@@ -3,6 +3,7 @@
 
 #include "asda.h"
 #include "sdo.h"
+#include "ethercat.h"
 
 #define MODE_PROFILE_POSITION 0x01
 #define MODE_CYCLIC_SYNCHRONOUS_POSITION 0x08
@@ -17,6 +18,7 @@
 #define PROFILE_MODE     0x6060
 #define CONTROL_WORD     0x6040
 #define TARGET_POSITION  0x607a
+#define TARGET_VELOCITY  0x60ff
 #define PROFILE_VELOCITY 0x6081
 #define PROFILE_ACCEL    0x6083
 #define PROFILE_DECEL    0x6084
@@ -36,7 +38,7 @@ int pdo_remap_pp(uint16_t slave)
     sdo_write8(slave, TXPDO, 0, 0);
 
     /* map RxPDO for Profile Position mode */
-        sdo_write32(slave, RXPDO, 1, ((PROFILE_MODE << 16)+0x8));
+    sdo_write32(slave, RXPDO, 1, ((PROFILE_MODE << 16)+0x8));
     sdo_write32(slave, RXPDO, 2, ((CONTROL_WORD << 16) + 0x10));
     sdo_write32(slave, RXPDO, 3, ((TARGET_POSITION << 16) + 0x20));
     sdo_write32(slave, RXPDO, 4, ((PROFILE_VELOCITY << 16) + 0x20));
@@ -90,9 +92,42 @@ int pdo_remap_csp(uint16_t slave)
     sdo_write8(slave, SM2, 0, 1);
     sdo_write8(slave, SM3, 0, 1);
 
-    sdo_write8(slave, 0x6060, 0, 0x08);
     return 1;
 }
+
+int pdo_remap_csv(uint16_t slave)
+{
+    /* disable PDO configuration */
+    sdo_write8(slave, SM2, 0, 0);
+    sdo_write8(slave, SM3, 0, 0);
+
+    /* disable PDO mapping */
+    sdo_write8(slave, RXPDO, 0, 0);
+    sdo_write8(slave, TXPDO, 0, 0);
+
+    /* map RxPDO for Cyclic Synchronous Velocity mode */
+    sdo_write32(slave, RXPDO, 1, ((CONTROL_WORD << 16) + 0x10));
+    sdo_write32(slave, RXPDO, 2, ((TARGET_VELOCITY << 16) + 0x20));
+    sdo_write8(slave, RXPDO, 0, 2);
+
+    /* map TxPDO for Cyclic Synchronous Velocity mode */
+    sdo_write32(slave, TXPDO, 1, ((STATUS_WORD << 16) + 0x10));
+    sdo_write32(slave, TXPDO, 2, ((POSITION_ACTUAL << 16) + 0x20));
+    sdo_write8(slave, TXPDO, 0, 2);
+
+    /* set PDO mapping */
+    sdo_write16(slave, SM2, 1, RXPDO);
+    sdo_write16(slave, SM3, 1, TXPDO);
+
+    /* enable PDO configuration */
+    sdo_write8(slave, SM2, 0, 1);
+    sdo_write8(slave, SM3, 0, 1);
+
+    return 1;
+}
+
+// Эти две функции относятся к машине состояний двигателя,
+// но к сожалению они работают странно и я их не использую.
 
 asda_state_t get_current_state(uint16_t status_word)
 {
