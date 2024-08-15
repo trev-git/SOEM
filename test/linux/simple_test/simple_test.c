@@ -61,7 +61,7 @@ void simpletest(char *ifname) {
     /* find and auto-config slaves */
 
     if (ec_config_init(FALSE) > 0) {
-      ec_slave[1].PO2SOconfig = pdo_remap_csv;
+      ec_slave[1].PO2SOconfig = pdo_remap_csp;
       printf("%d slaves found and configured.\n", ec_slavecount);
 
       if (forceByteAlignment) {
@@ -71,15 +71,7 @@ void simpletest(char *ifname) {
       }
 
       ec_configdc();
-      ec_dcsync01(1, TRUE, 8000, 0, 0);
-      printf("Setting up DC\n");
-      // Этот простой цикл должен (по идее) настроить
-      // синхронизацию для слейвов путём отправки пакетов.
-      for (int i = 0; i < 10000; i++)
-      {
-        ec_send_processdata();
-        ec_receive_processdata(EC_TIMEOUTMON);
-      }
+      ec_dcsync01(1, TRUE, 5000000, 0, 0);
 
       printf("Slaves mapped, state to SAFE_OP.\n");
       /* wait for all slaves to reach SAFE_OP state */
@@ -121,8 +113,8 @@ void simpletest(char *ifname) {
         output_pdo_ = (output_pdo_t *)ec_slave[0].outputs;
         input_pdo_ = (input_pdo_t *)ec_slave[0].inputs;
 
-        sdo_write8(1, 0x6060, 0, 0x09);
-        output_pdo_->target_position = 1200000;
+        sdo_write8(1, 0x6060, 0, 0x08);
+        output_pdo_->target_position = input_pdo_->position_actual;
         ec_send_processdata();
         ec_receive_processdata(EC_TIMEOUTRET);
         osal_usleep(5000);
@@ -144,7 +136,7 @@ void simpletest(char *ifname) {
 
         for(int i = 1; i <= 1000; i++)
         {
-          double pos = sin(M_PI * 2 * i) * 10000 + 1216000;
+          double pos = i * 100 + input_pdo_->position_actual;
           output_pdo_->target_position = (int32_t)pos;
           ec_send_processdata();
           wkc = ec_receive_processdata(EC_TIMEOUTRET);
@@ -158,9 +150,9 @@ void simpletest(char *ifname) {
               printf(" %2.2x", *(ec_slave[0].outputs + j));
             }
 
-            printf(" S: %016b ", input_pdo_->status_word);
-            printf(" P: %d ", input_pdo_->position_actual);
-            printf(" V: %d ", sdo_read32(1, 0x606c, 0));
+            printf(" S: %016b", input_pdo_->status_word);
+            printf(" P: %d", input_pdo_->position_actual);
+            printf(" V: %d", sdo_read32(1, 0x606c, 0));
             printf(" T:%"PRId64"\r",ec_DCtime);
             needlf = TRUE;
           }
