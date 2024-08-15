@@ -136,7 +136,7 @@ void simpletest(char *ifname) {
 
         for(int i = 1; i <= 1000; i++)
         {
-          double pos = i * 100.0f + input_pdo_->position_actual;
+          double pos = i * 10.0f + input_pdo_->position_actual;
           output_pdo_->target_position = (int32_t)pos;
           printf("%+10.2f ", pos);
 
