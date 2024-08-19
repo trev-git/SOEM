@@ -12,10 +12,10 @@
 #include <signal.h>
 #include <inttypes.h>
 #include <math.h>
-#include <signal.h>
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+#include <time.h>
 
 #include "asda.h"
 #include "ethercat.h"
@@ -34,8 +34,10 @@ volatile int wkc;
 boolean inOP;
 uint8 currentgroup = 0;
 boolean forceByteAlignment = FALSE;
+// int cycletime;
 
 typedef struct PACKED {
+  uint8_t mode;
   uint16_t control_word;
   int32_t target_position;
 } output_pdo_t;
@@ -72,6 +74,12 @@ void simpletest(char *ifname) {
 
       ec_configdc();
       ec_dcsync01(1, TRUE, 5000000, 0, 0);
+
+      // for (int i = 0; i < 10000; i++)
+      // {
+      //   ec_send_processdata();
+      //   ec_receive_processdata(EC_TIMEOUTSAFE);
+      // }
 
       printf("Slaves mapped, state to SAFE_OP.\n");
       /* wait for all slaves to reach SAFE_OP state */
@@ -113,7 +121,11 @@ void simpletest(char *ifname) {
         output_pdo_ = (output_pdo_t *)ec_slave[0].outputs;
         input_pdo_ = (input_pdo_t *)ec_slave[0].inputs;
 
-        sdo_write8(1, 0x6060, 0, 0x08);
+        output_pdo_->mode = 0x08;
+        ec_send_processdata();
+        ec_receive_processdata(EC_TIMEOUTRET);
+        osal_usleep(5000);
+
         output_pdo_->target_position = input_pdo_->position_actual;
         ec_send_processdata();
         ec_receive_processdata(EC_TIMEOUTRET);
@@ -136,9 +148,12 @@ void simpletest(char *ifname) {
 
         for(int i = 1; i <= 1000; i++)
         {
-          double pos = i * 10.0f + input_pdo_->position_actual;
-          output_pdo_->target_position = (int32_t)pos;
-          printf("%+10.2f ", pos);
+          int64_t start = ec_DCtime;
+          // clock_t now = clock();
+          // printf("%09d ", cycletime);
+          output_pdo_->target_position += 10;
+          // printf("%d ", sdo_read32(1, 0x607a, 0));
+          // printf("%d ", sdo_read16(1, 0x6040, 0));
 
           ec_send_processdata();
           wkc = ec_receive_processdata(EC_TIMEOUTRET);
@@ -155,7 +170,7 @@ void simpletest(char *ifname) {
             printf(" S: %016b", input_pdo_->status_word);
             printf(" P: %d", input_pdo_->position_actual);
             printf(" V: %d", sdo_read32(1, 0x606c, 0));
-            printf(" T:%"PRId64"\r",ec_DCtime);
+            printf(" T:%"PRId64"\n",ec_DCtime-start);
             needlf = TRUE;
           }
           osal_usleep(5000);
@@ -261,7 +276,6 @@ int main(int argc, char *argv[]) {
   signal(SIGTERM, to_init);
   signal(SIGINT, to_init);
   printf("SOEM (Simple Open EtherCAT Master)\nSimple test\n");
-
   if (argc > 1) {
     /* create thread to handle slave error handling in OP */
     osal_thread_create(&thread1, 128000, &ecatcheck, NULL);

@@ -74,9 +74,10 @@ int pdo_remap_csp(uint16_t slave)
     sdo_write8(slave, TXPDO, 0, 0);
 
     /* map RxPDO for Cyclic Synchronous Position mode */
-    sdo_write32(slave, RXPDO, 1, ((CONTROL_WORD << 16) + 0x10));
-    sdo_write32(slave, RXPDO, 2, ((TARGET_POSITION << 16) + 0x20));
-    sdo_write8(slave, RXPDO, 0, 2);
+    sdo_write32(slave, RXPDO, 1, ((PROFILE_MODE << 16) + 0x08));
+    sdo_write32(slave, RXPDO, 2, ((CONTROL_WORD << 16) + 0x10));
+    sdo_write32(slave, RXPDO, 3, ((TARGET_POSITION << 16) + 0x20));
+    sdo_write8(slave, RXPDO, 0, 3);
 
     /* map TxPDO for Cyclic Synchronous Position mode mode */
     sdo_write32(slave, TXPDO, 1, ((STATUS_WORD << 16) + 0x10));
