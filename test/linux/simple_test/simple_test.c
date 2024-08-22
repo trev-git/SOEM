@@ -11,7 +11,6 @@
 
 #include <signal.h>
 #include <inttypes.h>
-#include <math.h>
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
@@ -73,13 +72,7 @@ void simpletest(char *ifname) {
       }
 
       ec_configdc();
-      ec_dcsync01(1, TRUE, 5000000, 0, 0);
-
-      // for (int i = 0; i < 10000; i++)
-      // {
-      //   ec_send_processdata();
-      //   ec_receive_processdata(EC_TIMEOUTSAFE);
-      // }
+      ec_dcsync01(1, TRUE, 1000000, 0, 0);
 
       printf("Slaves mapped, state to SAFE_OP.\n");
       /* wait for all slaves to reach SAFE_OP state */
@@ -148,13 +141,7 @@ void simpletest(char *ifname) {
 
         for(int i = 1; i <= 1000; i++)
         {
-          int64_t start = ec_DCtime;
-          // clock_t now = clock();
-          // printf("%09d ", cycletime);
           output_pdo_->target_position += 10;
-          // printf("%d ", sdo_read32(1, 0x607a, 0));
-          // printf("%d ", sdo_read16(1, 0x6040, 0));
-
           ec_send_processdata();
           wkc = ec_receive_processdata(EC_TIMEOUTRET);
 
@@ -169,8 +156,7 @@ void simpletest(char *ifname) {
 
             printf(" S: %016b", input_pdo_->status_word);
             printf(" P: %d", input_pdo_->position_actual);
-            printf(" V: %d", sdo_read32(1, 0x606c, 0));
-            printf(" T:%"PRId64"\n",ec_DCtime-start);
+            printf(" T:%"PRId64" ",ec_DCtime);
             needlf = TRUE;
           }
           osal_usleep(5000);
