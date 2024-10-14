@@ -1,110 +1,82 @@
 [
 {
-  "directory": "/home/user/repos/SOEM/build",
-  "command": "/usr/bin/cc  -I/home/user/repos/SOEM/soem -I/home/user/repos/SOEM/osal -I/home/user/repos/SOEM/osal/linux -I/home/user/repos/SOEM/oshw/linux  -Wall -Wextra -o CMakeFiles/soem.dir/soem/ethercatbase.c.o -c /home/user/repos/SOEM/soem/ethercatbase.c",
-  "file": "/home/user/repos/SOEM/soem/ethercatbase.c",
-  "output": "CMakeFiles/soem.dir/soem/ethercatbase.c.o"
+  "directory": "/home/user/repos/soem/build",
+  "command": "/usr/bin/cc  -I/home/user/repos/soem/soem -I/home/user/repos/soem/osal -I/home/user/repos/soem/osal/linux -I/home/user/repos/soem/oshw/linux  -Wall -Wextra -o CMakeFiles/soem.dir/soem/ethercatbase.c.o -c /home/user/repos/soem/soem/ethercatbase.c",
+  "file": "/home/user/repos/soem/soem/ethercatbase.c"
 },
 {
-  "directory": "/home/user/repos/SOEM/build",
-  "command": "/usr/bin/cc  -I/home/user/repos/SOEM/soem -I/home/user/repos/SOEM/osal -I/home/user/repos/SOEM/osal/linux -I/home/user/repos/SOEM/oshw/linux  -Wall -Wextra -o CMakeFiles/soem.dir/soem/ethercatcoe.c.o -c /home/user/repos/SOEM/soem/ethercatcoe.c",
-  "file": "/home/user/repos/SOEM/soem/ethercatcoe.c",
-  "output": "CMakeFiles/soem.dir/soem/ethercatcoe.c.o"
+  "directory": "/home/user/repos/soem/build",
+  "command": "/usr/bin/cc  -I/home/user/repos/soem/soem -I/home/user/repos/soem/osal -I/home/user/repos/soem/osal/linux -I/home/user/repos/soem/oshw/linux  -Wall -Wextra -o CMakeFiles/soem.dir/soem/ethercatcoe.c.o -c /home/user/repos/soem/soem/ethercatcoe.c",
+  "file": "/home/user/repos/soem/soem/ethercatcoe.c"
 },
 {
-  "directory": "/home/user/repos/SOEM/build",
-  "command": "/usr/bin/cc  -I/home/user/repos/SOEM/soem -I/home/user/repos/SOEM/osal -I/home/user/repos/SOEM/osal/linux -I/home/user/repos/SOEM/oshw/linux  -Wall -Wextra -o CMakeFiles/soem.dir/soem/ethercatconfig.c.o -c /home/user/repos/SOEM/soem/ethercatconfig.c",
-  "file": "/home/user/repos/SOEM/soem/ethercatconfig.c",
-  "output": "CMakeFiles/soem.dir/soem/ethercatconfig.c.o"
+  "directory": "/home/user/repos/soem/build",
+  "command": "/usr/bin/cc  -I/home/user/repos/soem/soem -I/home/user/repos/soem/osal -I/home/user/repos/soem/osal/linux -I/home/user/repos/soem/oshw/linux  -Wall -Wextra -o CMakeFiles/soem.dir/soem/ethercatconfig.c.o -c /home/user/repos/soem/soem/ethercatconfig.c",
+  "file": "/home/user/repos/soem/soem/ethercatconfig.c"
 },
 {
-  "directory": "/home/user/repos/SOEM/build",
-  "command": "/usr/bin/cc  -I/home/user/repos/SOEM/soem -I/home/user/repos/SOEM/osal -I/home/user/repos/SOEM/osal/linux -I/home/user/repos/SOEM/oshw/linux  -Wall -Wextra -o CMakeFiles/soem.dir/soem/ethercatdc.c.o -c /home/user/repos/SOEM/soem/ethercatdc.c",
-  "file": "/home/user/repos/SOEM/soem/ethercatdc.c",
-  "output": "CMakeFiles/soem.dir/soem/ethercatdc.c.o"
+  "directory": "/home/user/repos/soem/build",
+  "command": "/usr/bin/cc  -I/home/user/repos/soem/soem -I/home/user/repos/soem/osal -I/home/user/repos/soem/osal/linux -I/home/user/repos/soem/oshw/linux  -Wall -Wextra -o CMakeFiles/soem.dir/soem/ethercatdc.c.o -c /home/user/repos/soem/soem/ethercatdc.c",
+  "file": "/home/user/repos/soem/soem/ethercatdc.c"
 },
 {
-  "directory": "/home/user/repos/SOEM/build",
-  "command": "/usr/bin/cc  -I/home/user/repos/SOEM/soem -I/home/user/repos/SOEM/osal -I/home/user/repos/SOEM/osal/linux -I/home/user/repos/SOEM/oshw/linux  -Wall -Wextra -o CMakeFiles/soem.dir/soem/ethercateoe.c.o -c /home/user/repos/SOEM/soem/ethercateoe.c",
-  "file": "/home/user/repos/SOEM/soem/ethercateoe.c",
-  "output": "CMakeFiles/soem.dir/soem/ethercateoe.c.o"
+  "directory": "/home/user/repos/soem/build",
+  "command": "/usr/bin/cc  -I/home/user/repos/soem/soem -I/home/user/repos/soem/osal -I/home/user/repos/soem/osal/linux -I/home/user/repos/soem/oshw/linux  -Wall -Wextra -o CMakeFiles/soem.dir/soem/ethercateoe.c.o -c /home/user/repos/soem/soem/ethercateoe.c",
+  "file": "/home/user/repos/soem/soem/ethercateoe.c"
 },
 {
-  "directory": "/home/user/repos/SOEM/build",
-  "command": "/usr/bin/cc  -I/home/user/repos/SOEM/soem -I/home/user/repos/SOEM/osal -I/home/user/repos/SOEM/osal/linux -I/home/user/repos/SOEM/oshw/linux  -Wall -Wextra -o CMakeFiles/soem.dir/soem/ethercatfoe.c.o -c /home/user/repos/SOEM/soem/ethercatfoe.c",
-  "file": "/home/user/repos/SOEM/soem/ethercatfoe.c",
-  "output": "CMakeFiles/soem.dir/soem/ethercatfoe.c.o"
+  "directory": "/home/user/repos/soem/build",
+  "command": "/usr/bin/cc  -I/home/user/repos/soem/soem -I/home/user/repos/soem/osal -I/home/user/repos/soem/osal/linux -I/home/user/repos/soem/oshw/linux  -Wall -Wextra -o CMakeFiles/soem.dir/soem/ethercatfoe.c.o -c /home/user/repos/soem/soem/ethercatfoe.c",
+  "file": "/home/user/repos/soem/soem/ethercatfoe.c"
 },
 {
-  "directory": "/home/user/repos/SOEM/build",
-  "command": "/usr/bin/cc  -I/home/user/repos/SOEM/soem -I/home/user/repos/SOEM/osal -I/home/user/repos/SOEM/osal/linux -I/home/user/repos/SOEM/oshw/linux  -Wall -Wextra -o CMakeFiles/soem.dir/soem/ethercatmain.c.o -c /home/user/repos/SOEM/soem/ethercatmain.c",
-  "file": "/home/user/repos/SOEM/soem/ethercatmain.c",
-  "output": "CMakeFiles/soem.dir/soem/ethercatmain.c.o"
+  "directory": "/home/user/repos/soem/build",
+  "command": "/usr/bin/cc  -I/home/user/repos/soem/soem -I/home/user/repos/soem/osal -I/home/user/repos/soem/osal/linux -I/home/user/repos/soem/oshw/linux  -Wall -Wextra -o CMakeFiles/soem.dir/soem/ethercatmain.c.o -c /home/user/repos/soem/soem/ethercatmain.c",
+  "file": "/home/user/repos/soem/soem/ethercatmain.c"
 },
 {
-  "directory": "/home/user/repos/SOEM/build",
-  "command": "/usr/bin/cc  -I/home/user/repos/SOEM/soem -I/home/user/repos/SOEM/osal -I/home/user/repos/SOEM/osal/linux -I/home/user/repos/SOEM/oshw/linux  -Wall -Wextra -o CMakeFiles/soem.dir/soem/ethercatprint.c.o -c /home/user/repos/SOEM/soem/ethercatprint.c",
-  "file": "/home/user/repos/SOEM/soem/ethercatprint.c",
-  "output": "CMakeFiles/soem.dir/soem/ethercatprint.c.o"
+  "directory": "/home/user/repos/soem/build",
+  "command": "/usr/bin/cc  -I/home/user/repos/soem/soem -I/home/user/repos/soem/osal -I/home/user/repos/soem/osal/linux -I/home/user/repos/soem/oshw/linux  -Wall -Wextra -o CMakeFiles/soem.dir/soem/ethercatprint.c.o -c /home/user/repos/soem/soem/ethercatprint.c",
+  "file": "/home/user/repos/soem/soem/ethercatprint.c"
 },
 {
-  "directory": "/home/user/repos/SOEM/build",
-  "command": "/usr/bin/cc  -I/home/user/repos/SOEM/soem -I/home/user/repos/SOEM/osal -I/home/user/repos/SOEM/osal/linux -I/home/user/repos/SOEM/oshw/linux  -Wall -Wextra -o CMakeFiles/soem.dir/soem/ethercatsoe.c.o -c /home/user/repos/SOEM/soem/ethercatsoe.c",
-  "file": "/home/user/repos/SOEM/soem/ethercatsoe.c",
-  "output": "CMakeFiles/soem.dir/soem/ethercatsoe.c.o"
+  "directory": "/home/user/repos/soem/build",
+  "command": "/usr/bin/cc  -I/home/user/repos/soem/soem -I/home/user/repos/soem/osal -I/home/user/repos/soem/osal/linux -I/home/user/repos/soem/oshw/linux  -Wall -Wextra -o CMakeFiles/soem.dir/soem/ethercatsoe.c.o -c /home/user/repos/soem/soem/ethercatsoe.c",
+  "file": "/home/user/repos/soem/soem/ethercatsoe.c"
 },
 {
-  "directory": "/home/user/repos/SOEM/build",
-  "command": "/usr/bin/cc  -I/home/user/repos/SOEM/soem -I/home/user/repos/SOEM/osal -I/home/user/repos/SOEM/osal/linux -I/home/user/repos/SOEM/oshw/linux  -Wall -Wextra -o CMakeFiles/soem.dir/osal/linux/osal.c.o -c /home/user/repos/SOEM/osal/linux/osal.c",
-  "file": "/home/user/repos/SOEM/osal/linux/osal.c",
-  "output": "CMakeFiles/soem.dir/osal/linux/osal.c.o"
+  "directory": "/home/user/repos/soem/build",
+  "command": "/usr/bin/cc  -I/home/user/repos/soem/soem -I/home/user/repos/soem/osal -I/home/user/repos/soem/osal/linux -I/home/user/repos/soem/oshw/linux  -Wall -Wextra -o CMakeFiles/soem.dir/osal/linux/osal.c.o -c /home/user/repos/soem/osal/linux/osal.c",
+  "file": "/home/user/repos/soem/osal/linux/osal.c"
 },
 {
-  "directory": "/home/user/repos/SOEM/build",
-  "command": "/usr/bin/cc  -I/home/user/repos/SOEM/soem -I/home/user/repos/SOEM/osal -I/home/user/repos/SOEM/osal/linux -I/home/user/repos/SOEM/oshw/linux  -Wall -Wextra -o CMakeFiles/soem.dir/oshw/linux/nicdrv.c.o -c /home/user/repos/SOEM/oshw/linux/nicdrv.c",
-  "file": "/home/user/repos/SOEM/oshw/linux/nicdrv.c",
-  "output": "CMakeFiles/soem.dir/oshw/linux/nicdrv.c.o"
+  "directory": "/home/user/repos/soem/build",
+  "command": "/usr/bin/cc  -I/home/user/repos/soem/soem -I/home/user/repos/soem/osal -I/home/user/repos/soem/osal/linux -I/home/user/repos/soem/oshw/linux  -Wall -Wextra -o CMakeFiles/soem.dir/oshw/linux/nicdrv.c.o -c /home/user/repos/soem/oshw/linux/nicdrv.c",
+  "file": "/home/user/repos/soem/oshw/linux/nicdrv.c"
 },
 {
-  "directory": "/home/user/repos/SOEM/build",
-  "command": "/usr/bin/cc  -I/home/user/repos/SOEM/soem -I/home/user/repos/SOEM/osal -I/home/user/repos/SOEM/osal/linux -I/home/user/repos/SOEM/oshw/linux  -Wall -Wextra -o CMakeFiles/soem.dir/oshw/linux/oshw.c.o -c /home/user/repos/SOEM/oshw/linux/oshw.c",
-  "file": "/home/user/repos/SOEM/oshw/linux/oshw.c",
-  "output": "CMakeFiles/soem.dir/oshw/linux/oshw.c.o"
+  "directory": "/home/user/repos/soem/build",
+  "command": "/usr/bin/cc  -I/home/user/repos/soem/soem -I/home/user/repos/soem/osal -I/home/user/repos/soem/osal/linux -I/home/user/repos/soem/oshw/linux  -Wall -Wextra -o CMakeFiles/soem.dir/oshw/linux/oshw.c.o -c /home/user/repos/soem/oshw/linux/oshw.c",
+  "file": "/home/user/repos/soem/oshw/linux/oshw.c"
 },
 {
-  "directory": "/home/user/repos/SOEM/build/test/simple_ng",
-  "command": "/usr/bin/cc  -I/home/user/repos/SOEM/soem -I/home/user/repos/SOEM/osal -I/home/user/repos/SOEM/osal/linux -I/home/user/repos/SOEM/oshw/linux  -Wall -Wextra -o CMakeFiles/simple_ng.dir/simple_ng.c.o -c /home/user/repos/SOEM/test/simple_ng/simple_ng.c",
-  "file": "/home/user/repos/SOEM/test/simple_ng/simple_ng.c",
-  "output": "test/simple_ng/CMakeFiles/simple_ng.dir/simple_ng.c.o"
+  "directory": "/home/user/repos/soem/build/test/simple_ng",
+  "command": "/usr/bin/cc  -I/home/user/repos/soem/soem -I/home/user/repos/soem/osal -I/home/user/repos/soem/osal/linux -I/home/user/repos/soem/oshw/linux  -Wall -Wextra -o CMakeFiles/simple_ng.dir/simple_ng.c.o -c /home/user/repos/soem/test/simple_ng/simple_ng.c",
+  "file": "/home/user/repos/soem/test/simple_ng/simple_ng.c"
 },
 {
-  "directory": "/home/user/repos/SOEM/build/test/linux/slaveinfo",
-  "command": "/usr/bin/cc  -I/home/user/repos/SOEM/soem -I/home/user/repos/SOEM/osal -I/home/user/repos/SOEM/osal/linux -I/home/user/repos/SOEM/oshw/linux  -Wall -Wextra -o CMakeFiles/slaveinfo.dir/slaveinfo.c.o -c /home/user/repos/SOEM/test/linux/slaveinfo/slaveinfo.c",
-  "file": "/home/user/repos/SOEM/test/linux/slaveinfo/slaveinfo.c",
-  "output": "test/linux/slaveinfo/CMakeFiles/slaveinfo.dir/slaveinfo.c.o"
+  "directory": "/home/user/repos/soem/build/test/linux/slaveinfo",
+  "command": "/usr/bin/cc  -I/home/user/repos/soem/soem -I/home/user/repos/soem/osal -I/home/user/repos/soem/osal/linux -I/home/user/repos/soem/oshw/linux  -Wall -Wextra -o CMakeFiles/slaveinfo.dir/slaveinfo.c.o -c /home/user/repos/soem/test/linux/slaveinfo/slaveinfo.c",
+  "file": "/home/user/repos/soem/test/linux/slaveinfo/slaveinfo.c"
 },
 {
-  "directory": "/home/user/repos/SOEM/build/test/linux/eepromtool",
-  "command": "/usr/bin/cc  -I/home/user/repos/SOEM/soem -I/home/user/repos/SOEM/osal -I/home/user/repos/SOEM/osal/linux -I/home/user/repos/SOEM/oshw/linux  -Wall -Wextra -o CMakeFiles/eepromtool.dir/eepromtool.c.o -c /home/user/repos/SOEM/test/linux/eepromtool/eepromtool.c",
-  "file": "/home/user/repos/SOEM/test/linux/eepromtool/eepromtool.c",
-  "output": "test/linux/eepromtool/CMakeFiles/eepromtool.dir/eepromtool.c.o"
+  "directory": "/home/user/repos/soem/build/test/linux/eepromtool",
+  "command": "/usr/bin/cc  -I/home/user/repos/soem/soem -I/home/user/repos/soem/osal -I/home/user/repos/soem/osal/linux -I/home/user/repos/soem/oshw/linux  -Wall -Wextra -o CMakeFiles/eepromtool.dir/eepromtool.c.o -c /home/user/repos/soem/test/linux/eepromtool/eepromtool.c",
+  "file": "/home/user/repos/soem/test/linux/eepromtool/eepromtool.c"
 },
 {
-  "directory": "/home/user/repos/SOEM/build/test/linux/simple_test",
-  "command": "/usr/bin/cc  -I/home/user/repos/SOEM/soem -I/home/user/repos/SOEM/osal -I/home/user/repos/SOEM/osal/linux -I/home/user/repos/SOEM/oshw/linux  -Wall -Wextra -o CMakeFiles/simple_test.dir/simple_test.c.o -c /home/user/repos/SOEM/test/linux/simple_test/simple_test.c",
-  "file": "/home/user/repos/SOEM/test/linux/simple_test/simple_test.c",
-  "output": "test/linux/simple_test/CMakeFiles/simple_test.dir/simple_test.c.o"
-},
-{
-  "directory": "/home/user/repos/SOEM/build/test/linux/simple_test",
-  "command": "/usr/bin/cc  -I/home/user/repos/SOEM/soem -I/home/user/repos/SOEM/osal -I/home/user/repos/SOEM/osal/linux -I/home/user/repos/SOEM/oshw/linux  -Wall -Wextra -o CMakeFiles/simple_test.dir/asda.c.o -c /home/user/repos/SOEM/test/linux/simple_test/asda.c",
-  "file": "/home/user/repos/SOEM/test/linux/simple_test/asda.c",
-  "output": "test/linux/simple_test/CMakeFiles/simple_test.dir/asda.c.o"
-},
-{
-  "directory": "/home/user/repos/SOEM/build/test/linux/simple_test",
-  "command": "/usr/bin/cc  -I/home/user/repos/SOEM/soem -I/home/user/repos/SOEM/osal -I/home/user/repos/SOEM/osal/linux -I/home/user/repos/SOEM/oshw/linux  -Wall -Wextra -o CMakeFiles/simple_test.dir/sdo.c.o -c /home/user/repos/SOEM/test/linux/simple_test/sdo.c",
-  "file": "/home/user/repos/SOEM/test/linux/simple_test/sdo.c",
-  "output": "test/linux/simple_test/CMakeFiles/simple_test.dir/sdo.c.o"
+  "directory": "/home/user/repos/soem/build/test/linux/simple_test",
+  "command": "/usr/bin/cc  -I/home/user/repos/soem/soem -I/home/user/repos/soem/osal -I/home/user/repos/soem/osal/linux -I/home/user/repos/soem/oshw/linux  -Wall -Wextra -o CMakeFiles/simple_test.dir/simple_test.c.o -c /home/user/repos/soem/test/linux/simple_test/simple_test.c",
+  "file": "/home/user/repos/soem/test/linux/simple_test/simple_test.c"
 }
 ]

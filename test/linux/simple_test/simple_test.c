@@ -18,6 +18,7 @@
 
 #include "asda.h"
 #include "ethercat.h"
+#include "ethercatdc.h"
 #include "ethercatmain.h"
 #include "ethercattype.h"
 #include "osal.h"
@@ -36,9 +37,9 @@ boolean forceByteAlignment = FALSE;
 // int cycletime;
 
 typedef struct PACKED {
-  uint8_t mode;
+  int8_t mode;
   uint16_t control_word;
-  int32_t target_position;
+  int32_t position;
 } output_pdo_t;
 
 typedef struct PACKED {
@@ -72,7 +73,7 @@ void simpletest(char *ifname) {
       }
 
       ec_configdc();
-      ec_dcsync01(1, TRUE, 1000000, 0, 0);
+      ec_dcsync0(1, TRUE, 4000000, 0);
 
       printf("Slaves mapped, state to SAFE_OP.\n");
       /* wait for all slaves to reach SAFE_OP state */
@@ -114,34 +115,36 @@ void simpletest(char *ifname) {
         output_pdo_ = (output_pdo_t *)ec_slave[0].outputs;
         input_pdo_ = (input_pdo_t *)ec_slave[0].inputs;
 
-        output_pdo_->mode = 0x08;
+        output_pdo_->mode = MODE_CYCLIC_SYNCHRONOUS_POSITION;
         ec_send_processdata();
         ec_receive_processdata(EC_TIMEOUTRET);
         osal_usleep(5000);
 
-        output_pdo_->target_position = input_pdo_->position_actual;
+
+        output_pdo_->control_word = 0b00110;
         ec_send_processdata();
         ec_receive_processdata(EC_TIMEOUTRET);
         osal_usleep(5000);
 
-        output_pdo_->control_word = 0b0110;
+        output_pdo_->control_word = 0b00111;
         ec_send_processdata();
         ec_receive_processdata(EC_TIMEOUTRET);
         osal_usleep(5000);
 
-        output_pdo_->control_word = 0b0111;
+        output_pdo_->control_word = 0b01111;
         ec_send_processdata();
         ec_receive_processdata(EC_TIMEOUTRET);
         osal_usleep(5000);
 
-        output_pdo_->control_word = 0b1111;
+        output_pdo_->position = input_pdo_->position_actual;
         ec_send_processdata();
         ec_receive_processdata(EC_TIMEOUTRET);
         osal_usleep(5000);
 
-        for(int i = 1; i <= 1000; i++)
+        for(int i = 1; i <= 10000; i++)
         {
-          output_pdo_->target_position += 10;
+          output_pdo_->position = input_pdo_->position_actual + 10000;
+          output_pdo_->control_word = 0b01111;
           ec_send_processdata();
           wkc = ec_receive_processdata(EC_TIMEOUTRET);
 
@@ -156,7 +159,8 @@ void simpletest(char *ifname) {
 
             printf(" S: %016b", input_pdo_->status_word);
             printf(" P: %d", input_pdo_->position_actual);
-            printf(" T:%"PRId64" ",ec_DCtime);
+            printf(" T:%"PRId64"\r",ec_DCtime);
+
             needlf = TRUE;
           }
           osal_usleep(5000);
@@ -255,6 +259,7 @@ void to_init(int a)
   /* request INIT state for all slaves */
   ec_writestate(0);
   ec_close();
+  inOP = false;
   exit(EXIT_SUCCESS);
 }
 
