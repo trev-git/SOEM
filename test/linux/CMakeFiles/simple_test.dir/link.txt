@@ -1,0 +1,1 @@
+/usr/bin/cc -rdynamic CMakeFiles/simple_test.dir/simple_test.o CMakeFiles/simple_test.dir/asda.o CMakeFiles/simple_test.dir/sdo.o -o simple_test  -lsoem -lm 
