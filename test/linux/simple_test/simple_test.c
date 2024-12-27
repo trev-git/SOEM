@@ -9,11 +9,11 @@
  * (c)Arthur Ketels 2010 - 2011
  */
 
-#include <signal.h>
 #include <inttypes.h>
+#include <signal.h>
 #include <stdio.h>
-#include <string.h>
 #include <stdlib.h>
+#include <string.h>
 #include <time.h>
 
 #include "asda.h"
@@ -39,7 +39,6 @@ boolean forceByteAlignment = FALSE;
 typedef struct PACKED {
   int8_t mode;
   uint16_t control_word;
-  int32_t position;
   int32_t velocity;
   int32_t accel;
   int32_t decel;
@@ -66,7 +65,7 @@ void simpletest(char *ifname) {
     /* find and auto-config slaves */
 
     if (ec_config_init(FALSE) > 0) {
-      ec_slave[1].PO2SOconfig = pdo_remap_pp;
+      ec_slave[1].PO2SOconfig = pdo_remap_pv;
       printf("%d slaves found and configured.\n", ec_slavecount);
 
       if (forceByteAlignment) {
@@ -86,12 +85,12 @@ void simpletest(char *ifname) {
       if ((oloop == 0) && (ec_slave[0].Obits > 0))
         oloop = 1;
       // if (oloop > 8)
-        // oloop = 8;
+      // oloop = 8;
       iloop = ec_slave[0].Ibytes;
       if ((iloop == 0) && (ec_slave[0].Ibits > 0))
         iloop = 1;
       // if (iloop > 8)
-        // iloop = 8;
+      // iloop = 8;
 
       printf("segments : %d : %d %d %d %d\n", ec_group[0].nsegments,
              ec_group[0].IOsegment[0], ec_group[0].IOsegment[1],
@@ -113,28 +112,22 @@ void simpletest(char *ifname) {
         ec_receive_processdata(EC_TIMEOUTRET);
         ec_statecheck(0, EC_STATE_OPERATIONAL, 50000);
       } while (chk-- && (ec_slave[0].state != EC_STATE_OPERATIONAL));
-      if (ec_slave[0].state == EC_STATE_OPERATIONAL)
-      {
+      if (ec_slave[0].state == EC_STATE_OPERATIONAL) {
         inOP = true;
         output_pdo_ = (output_pdo_t *)ec_slave[0].outputs;
         input_pdo_ = (input_pdo_t *)ec_slave[0].inputs;
 
-        output_pdo_->mode = MODE_PROFILE_POSITION;
-        ec_send_processdata();
-        ec_receive_processdata(EC_TIMEOUTRET);
-        osal_usleep(5000);
-        
-        output_pdo_->position =input_pdo_->position_actual + 10000000;
+        output_pdo_->mode = MODE_PROFILE_VELOCITY;
         ec_send_processdata();
         ec_receive_processdata(EC_TIMEOUTRET);
         osal_usleep(5000);
 
-        output_pdo_->velocity = 150000;
+        output_pdo_->velocity = 0;
         ec_send_processdata();
         ec_receive_processdata(EC_TIMEOUTRET);
         osal_usleep(5000);
-        /*
-        output_pdo_->accel = 1000;
+
+        output_pdo_->accel = 2000;
         ec_send_processdata();
         ec_receive_processdata(EC_TIMEOUTRET);
         osal_usleep(5000);
@@ -143,7 +136,6 @@ void simpletest(char *ifname) {
         ec_send_processdata();
         ec_receive_processdata(EC_TIMEOUTRET);
         osal_usleep(5000);
-        */
 
         output_pdo_->control_word = 0b00110;
         ec_send_processdata();
@@ -159,42 +151,57 @@ void simpletest(char *ifname) {
         ec_send_processdata();
         ec_receive_processdata(EC_TIMEOUTRET);
         osal_usleep(5000);
-        
-        output_pdo_->control_word = 0b11111;
+        int target_pos = input_pdo_->position_actual + 10000000;
+
+        output_pdo_->velocity = 20000;
         ec_send_processdata();
         ec_receive_processdata(EC_TIMEOUTRET);
         osal_usleep(5000);
 
-  
-        for(int i = 0; i <= 1000000; i++)
-        {
-          
+        /*output_pdo_->control_word = 0b00110;
+        ec_send_processdata();
+        ec_receive_processdata(EC_TIMEOUTRET);
+        osal_usleep(5000);
+
+        output_pdo_->control_word = 0b00111;
+        ec_send_processdata();
+        ec_receive_processdata(EC_TIMEOUTRET);
+        osal_usleep(5000);
+
+        output_pdo_->control_word = 0b01111;
+        ec_send_processdata();
+        ec_receive_processdata(EC_TIMEOUTRET);
+        osal_usleep(5000);*/
+
+        /*output_pdo_->control_word = 0b11111;
+        ec_send_processdata();
+        ec_receive_processdata(EC_TIMEOUTRET);
+        osal_usleep(5000);*/
+        
+        for (int i = 0; i < 10000000; i++) {
+
           
           ec_send_processdata();
           wkc = ec_receive_processdata(EC_TIMEOUTRET);
 
-          if(wkc >= expectedWKC)//
+          if (wkc >= expectedWKC) //
           {
             printf("Processdata cycle %4d, WKC %d , O:", i, wkc);
 
-            for(j = 0 ; j < oloop; j++)
-            {
+            for (j = 0; j < oloop; j++) {
               printf(" %2.2x", *(ec_slave[0].outputs + j));
             }
 
             printf(" S: %016b", input_pdo_->status_word);
             printf(" P: %d", input_pdo_->position_actual);
-            printf(" T:%"PRId64"\r",ec_DCtime);
+            printf(" T:%" PRId64 "\r", ec_DCtime);
 
             needlf = TRUE;
-            if( input_pdo_->position_actual >= output_pdo_->position) break;
           }
           osal_usleep(5000);
         }
         inOP = false;
-      } 
-      else
-      {
+      } else {
         printf("Not all slaves reached operational state.\n");
         ec_readstate();
         for (i = 1; i <= ec_slavecount; i++) {
@@ -209,19 +216,17 @@ void simpletest(char *ifname) {
       ec_slave[0].state = EC_STATE_INIT;
       /* request INIT state for all slaves */
       ec_writestate(0);
-    } else
-    {
+    } else {
       printf("No slaves found!\n");
     }
     printf("End simple test, close socket\n");
     /* stop SOEM, close socket */
     ec_close();
-  } else
-  {
+  } else {
     printf("No socket connection on %s\nExecute as root\n", ifname);
   }
 }
-        
+
 OSAL_THREAD_FUNC ecatcheck(void *ptr) {
   int slave;
   (void)ptr; /* Not used */
@@ -282,8 +287,7 @@ OSAL_THREAD_FUNC ecatcheck(void *ptr) {
   }
 }
 
-void to_init(int a)
-{
+void to_init(int a) {
   printf("\nRequest init state for all slaves from SIGINT\n");
   ec_slave[0].state = EC_STATE_INIT;
   /* request INIT state for all slaves */
